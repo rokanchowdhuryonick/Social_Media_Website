@@ -11,9 +11,19 @@
       <h3 class="panel-title">All Country List</h3>
     </div>
     <div class="panel-body">
+      @if (Session::has('message'))
+        <div class="alert alert-success">
+          {{session('message')}}
+        </div>
+      @endif
+      
+      <br>
+      @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{$error}}</div>
+      @endforeach
       <form method="post" class="form-inline">
         @csrf
-        <input type="text" class="form-control" name="countryName" id="">
+        <input type="text" class="form-control" name="country_name" id="">
         <input type="submit" value="Add" class="btn btn-primary">
       </form>
 <br>
@@ -26,11 +36,16 @@
           </tr>
         </thead>
         <tbody>
+          @php
+           $i=0;   
+          @endphp
+          @foreach ($countryList as $country)
           <tr>
-            <td>1</td>
-            <td>Bangladesh</td>
-            <td><a href="country/update/1" class="btn btn-warning"><i class="fa fa-pencil"></i></a> <a href="country/delete/1" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+            <td>{{++$i}}</td>
+            <td>{{$country['country_name']}}</td>
+            <td><a href="country/update/{{$country['country_id']}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> <a href="country/delete/{{$country['country_id']}}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
           </tr>
+          @endforeach
         </tbody>
       </table>
 
