@@ -17,3 +17,4 @@ use App\Http\Controllers\CountryController;
 Route::get('/country', [CountryController::class, 'index']);
 
 Route::post('/country', [CountryController::class, 'createCountry']);
+Route::get('/country/delete/{id}', [CountryController::class, 'deleteCountry']);
