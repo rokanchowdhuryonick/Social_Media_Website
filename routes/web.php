@@ -16,6 +16,4 @@ use App\Http\Controllers\CountryController;
 
 Route::get('/country', [CountryController::class, 'index']);
 
-Route::post('/country', function ($id) {
-    
-});
+Route::post('/country', [CountryController::class, 'createCountry']);
