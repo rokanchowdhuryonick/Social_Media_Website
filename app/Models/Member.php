@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 
 
 
-class Member extends Model implements Authenticatable  {
-   use HasFactory;
-   use Authenticatable;
+class Member extends Model  {
+   //use HasFactory;
+   //use Authenticatable;
+   protected $table = 'members';
     public function posts()
     {
         return $this->hasMany(Post::Class);

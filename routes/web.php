@@ -15,13 +15,21 @@ Route::get('/', function () {
 Route::get('/index', function () {
     return view('index');
 });
-//Route::post('/login',[LoginController::class,'validation']);
+Route::post('/login',[LoginController::class,'validation']);
 Route::get('/login',[LoginController::class,'showview']);
-Route::post('/login',[LoginController::class,'Checkuser']);
+
 
 Route::get('/homepage', function () {
    return view('homepage');
 });
+Route::get('/chat', function () {
+    return view('chat');
+ });
+
+
+Route::post('/signup',[UserController::class,'addmember']);
+Route::get('/signup',[UserController::class,'getview']);
+
 
 
 Route::get('/homepage',[PostController::class,'getview']);
@@ -31,7 +39,7 @@ Route::get('/logout',[LogoutController::class,'index']);
 
 //Route::group(['middleware'=>['session']],function(){
 
-      //route::get('/homepage');
-      //route::get('/chatt);
+     //route::view('/homepage');
+      
 //});
 

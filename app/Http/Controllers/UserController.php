@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use Validator;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 //use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 
@@ -36,9 +36,10 @@ class UserController extends Controller
         'password'=>'required|max:8'
     ]);
     
-    if($validation->fails()){
+           if($validation->fails()){
     
-                return redirect('/signup')->with ('errors',$validation->errors());
+             return redirect('/signup')->with ('errors',$validation->errors());
+      
            }
     
         else{

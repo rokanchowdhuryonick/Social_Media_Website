@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <form method="POST">
+    <form method="POST" action="/signup">
      @csrf 
       <div class="form-content">
         <div class="login-form" >

@@ -11,6 +11,6 @@ class Post extends Model
    
     public function member()
     {
-        return $this->belongsTo(Member::classs);
+        return $this->belongsTo(Member::class);
     }
 }

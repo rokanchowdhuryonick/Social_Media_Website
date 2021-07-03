@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Member;
 
 
 
@@ -15,15 +16,24 @@ class PostController extends Controller
         return view('homepage',['posts'=>$posts]);
  }
 
-     public function postCreatePost(Request $req){
-        $post = new Post();
-        $post->body = $req['body'];
-        // var_dump($req['body']);
-        $post->user_id = Auth::id(); ;
-        $post->save();
+     public function postCreatePost(Request $request){
         
-        return redirect()->route('/homepage');
-     }
+        $this->validate($request, [
+            'body' => 'required|max:1000'
+        ]);
+        $post = new Post();
+        $post->body = $request['body'];
+        $message = 'There was an error';
+        if ($request->member()->posts()->save($post)) {
+            $message = 'Post successfully created!';
+        }
+        return redirect()->route('/homepage')->with(['message' => $message]);
+    }
+
+
+
+
+
     // public function getDeletePost($post_id)
      //{
         // $post = Post::where('id', $post_id)->first();
