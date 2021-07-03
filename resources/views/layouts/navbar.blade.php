@@ -39,17 +39,22 @@
               <li><a href="timeline-friends.html">Timeline Friends</a></li>
             </ul>
           </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-              aria-expanded="false">Admin Settings <span><img src="{{asset('images/down-arrow.png')}}" alt="" /></span></a>
-            <ul class="dropdown-menu login">
-              <li><a href="/country">Country List</a></li>
-              <li><a href="/restictedWord">Resticted Words</a></li>
-              <li><a href="/users">Users List</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a href="contact.html">Contact</a></li>
-          <li class="dropdown"><a href="yourjob/job-search.html">Job</a></li>
+          @if (Session::get('user_type')=='admin')
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">Admin Settings <span><img src="{{asset('images/down-arrow.png')}}" alt="" /></span></a>
+              <ul class="dropdown-menu login">
+                <li><a href="/country">Country List</a></li>
+                <li><a href="/restictedWord">Resticted Words</a></li>
+                <li><a href="/users">Users List</a></li>
+                <li><a href="/admin">Admins List</a></li>
+                <li><a href="/notice">Notice</a></li>
+                <li><a href="/jobs">Jobs</a></li>
+              </ul>
+            </li>
+          @endif
+          
+          <li class="dropdown"><a href="/logout">Logout</a></li>
         </ul>
         <form class="navbar-form navbar-right hidden-sm">
           <div class="form-group">

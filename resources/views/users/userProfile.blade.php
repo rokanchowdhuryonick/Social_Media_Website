@@ -1,0 +1,56 @@
+@extends('layouts.main')
+
+@section('title', "User Profile")
+
+@section('content')
+
+<div class="container-fluid">
+      
+    <div id="page-contents">
+    <div class="row">
+        <div class="col-md-3 static">
+            <div id="sticky-sidebar">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="profile-info text-center">
+                            <img src="{{asset('images/users/user-1.jpg')}}" alt="" class="profile-photo-lg">
+                        </div>
+                        <br>
+                        <h3 class="text-center">{{$user['name']}}</h3>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">
+                                <span class="badge">14</span>
+                                <b>Friends:</b>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <span class="badge badge-primary">{{$user['registration_datetime']}}</span>
+                                <b>Account Created</b>
+                            </a>
+                          </div>
+                        
+
+                    </div>
+                    <div class="panel-footer">
+                        <a href=""><i class="fa fa-inbox fa-3x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+        
+
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+@endsection
+
+@section('script')
+<script>
+//   $(document).ready(function() {
+//     $('#countryList').DataTable();
+// });
+</script>
+@endsection

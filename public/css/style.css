@@ -190,9 +190,9 @@ img.profile-photo{
 }
 
 img.profile-photo-lg{
-  height: 80px;
-  width: 80px;
   border-radius: 50%;
+  height: 200px;
+  width: 200px;
 }
 
 img.profile-photo-md{
