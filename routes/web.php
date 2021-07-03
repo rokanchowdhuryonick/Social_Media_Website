@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RestictedMessageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NoticeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,16 @@ Route::group(['middleware'=>['sessionAuth']], function(){
 
         Route::get('/admin', [AdminController::class, 'index']);
         Route::post('/admin', [AdminController::class, 'addAdmin']);
+        Route::get('/admin/update/{id}', [AdminController::class, 'updateAdmin'])->name('admin.update');
+        Route::post('/admin/update/{id}', [AdminController::class, 'updateAdmin'])->name('admin.update');
         Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('admin.delete');
+
+
+        //Notices
+        Route::get('/notice', [NoticeController::class, 'index']);
+        Route::post('/notice', [NoticeController::class, 'createNotice']);
+        Route::post('/notice/update/{id}', [NoticeController::class, 'updateNotice']);
+        Route::get('/notice/{id}', [NoticeController::class, 'getNotice']);
+        Route::get('/notice/delete/{id}', [NoticeController::class, 'deleteNotice']);
     });
 });

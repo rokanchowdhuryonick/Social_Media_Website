@@ -48,6 +48,8 @@
                 <li><a href="/restictedWord">Resticted Words</a></li>
                 <li><a href="/users">Users List</a></li>
                 <li><a href="/admin">Admins List</a></li>
+                <li><a href="/notice">Notice</a></li>
+                <li><a href="/jobs">Jobs</a></li>
               </ul>
             </li>
           @endif
