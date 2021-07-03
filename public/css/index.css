@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins" , sans-serif;
+}
+.hero{
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image:url('../images/1.jpg') , 
+    linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4));
+    position: absolute;
+} 
+.form-box{
+    height:480px ;
+    width: 500px ;
+    position: relative;
+    margin: 6% auto;
+   background-color: #7d2ae8;
+    padding: 5px;
+    
+   
+}
+.img-box{
+    font-size: 46px;
+    position: absolute;
+    margin: 35px auto;
+    top: -4px;
+    right: 212px;
+   
+}
+.press{
+width: 306px;
+margin: 84px auto;
+position: absolute;
+
+
+}
+.text{
+    text-align: center;
+position: absolute;
+top: 116px;
+right: 129px;
+color: white;
+font-size: 60px;
+
+}
+.text2{
+    text-align: center;
+position: absolute;
+top: 192px;
+right: 6px;
+color: white;
+font-size: 26px;
+    
+}
+
+
+.button{
+padding: 10px;
+width: 218px;
+position: absolute;
+top: 279px;
+left: 139px;
+color: #7d2ae8;
+border: 3px solid #a29bfe;
+font-size: 22px;
+border-radius: 6px;
+background-color: white;
+text-align: center;
+cursor: pointer;
+text-decoration: none;
+
+}
+.button:hover {
+    background-color: #a29bfe; 
+    color: white;
+  }
+
+

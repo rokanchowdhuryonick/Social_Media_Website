@@ -1,0 +1,65 @@
+body{
+    background-color: #F8F8E3;
+}
+.nav-wrapper{
+    background-color: #04AA6D;
+}
+.connect-icon{
+    font-size: 2rem;
+    
+}
+.dotconnect{
+    font-size: 2rem;
+    font-family: 'Open Sans', sans-serif;
+}
+.search-bar{
+    margin: 0;
+    margin-left: 170px;
+    height: 31px;
+    width: 220px;
+    border-radius: 5px;
+    text-align: center;
+}
+.nav-icons{
+    font-size: 1.2rem;
+    color: #262626;
+    text-decoration: none;
+}
+.card{
+    height: 865px;
+    width: 615px;
+}
+.card-img{
+    height: 612px;
+}
+.page-name{
+    border-radius: 40px;
+}
+.time{
+    font-size: 10px;
+}
+.comment{
+    height: 3rem;
+    width: 40rem;
+    border: 1px solid black;
+    text-decoration: none;
+    border-style: none;
+    background: none;
+    outline: none;
+}
+.comment-section{
+    background-color:#FFFFFF;
+    width: 615px;
+    margin: 0;
+    margin-left:0;
+    height: 3rem;
+    border: 1px solid #E6E6E6;
+}
+.card-div{
+    margin: 0;
+    margin-top: 61px;
+}
+
+
+
+
