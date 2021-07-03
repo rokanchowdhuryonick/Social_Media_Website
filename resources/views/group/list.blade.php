@@ -21,6 +21,7 @@
 <body>
 <h2>Group List</h2>
     <form action="" method="post">
+    
     <table border="1">
     
    
@@ -36,7 +37,7 @@
  
     </tr>
 
-  @foreach($grouplist as $create_group) 
+  @foreach($create_groups as $create_group) 
   
 
     <tr>
@@ -45,20 +46,29 @@
     <td>{{$create_group['group_name']}}</td>
     <td>{{$create_group['email']}}</td>
     <td>
-    <a href="/group/details/{{$create_group['id']}}">Detils</a>
+    <a href="/group/details/{{$create_group['id']}}">Details</a>
     <a href="/group/edit/{{$create_group['id']}}">edit</a>
     <a href="/group/delete/{{$create_group['id']}}">delete</a>
     </td>
    
  
     </tr>
+    
    @endforeach
-
-  
-
-   
     </table>
     
     </form>
+    @if(Session::has('msg'))
+    <div class="alert alert-success" role="alert" style="width:30%">
+     {{ Session::get('msg') }}
+                </div>
+           @endif
+           @if(Session::has('msg1'))
+                <div class="alert alert-success" role="alert" style="width:20%">
+                    {{ Session::get('msg1') }}
+                </div>
+                @endif
+  
+
 </body>
 </html>

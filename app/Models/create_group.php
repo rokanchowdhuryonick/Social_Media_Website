@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class jobmodel extends Model
+class create_group extends Model
 {
     use HasFactory;
-    protected $table = "jobs";
-    protected $primaryKey = "id ";
-    public $timestamps = false;
+    protected $table="create_groups";
+    protected $primaryKey="id";
+    public $timestamps=false;
 }

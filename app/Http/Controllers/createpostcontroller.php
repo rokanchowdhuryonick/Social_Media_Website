@@ -11,56 +11,34 @@ class createpostcontroller extends Controller
     public function createpost()
     {
           
-        $jobid = DB::table('job')->get();
-        return view('createpost')->with('jobid', $jobid);
+       return view('createpost');
        
     }
     public function addjob(Request $req){
+ 
+        $jobs= new jobmodel;
+        $jobs->id=$req->id;
+        $jobs->title=$req->title;
+        $jobs->salary=$req->salary;
+        $jobs->description=$req->description;
+        $jobs->save();
+        
 
-        $job = new jobmodel();
-       
-       
+        if (DB::table('jobs')->insert([
+           ]))
+           { 
+            $req->session()->flash('msg2', 'Successful!');
+            return view('createpost');
+            }
+          else{
+           $req->session()->flash('msg2', 'unSuccessful!');
+            return view('createpost');
+              }
+      
+
+            
      
-        $job->jobid = $request->session()->get('jobid');
-        $job->title =  $request->title;
-        $job->salary =  $request->salary;
+
+   }
         
-      
-       
-        $file =  $request->file('image');
-        $file->move('upload', $file->getClientOriginalName());
-      
-        $product->product_img = $file->getClientOriginalName();
-        
-        $vvv = DB::table('job')->where('title', $job->title)->first('title');
-        foreach ($vvv as $value) {
-            $job->title = $value;
-        }
-        
-        if (DB::table('job')->insert([
-            'id' => $request->session()->get('id'),
-            'title' => $job->title,
-            'salary' => $job->salary,
-            
-            
-            'image' => $job->image,
-            'description' => $job->discription
-            
-        ])) {
-            $request->session()->flash('status', 'successful!');
-            $jobid = DB::table('job')->get();
-            return view('job')->with('id', $jobid);
-        } else {
-            $request->session()->flash('status', 'UNsuccessful!');
-            $jobid = DB::table('job')->get();
-            return view('job')->with('id', $jobid);
-        }
-    
-
-
-
-
-
-
-        }
 }

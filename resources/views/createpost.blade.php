@@ -27,36 +27,42 @@
 </div >
 <div Class="container">
 <div>
+<label for="title"><b>Job Id</b></label>
+</div>
+
+<textarea name="id" form="usrform"></textarea>
+
+
+<div>
 <label for="title"><b>TITLE</b></label>
 </div>
 
-<textarea name="title" form="usrform"></textarea>
+
+<textarea name="title" form="usrform" ></textarea>
 
 <div>
 <label for="title"><b>Salary</b></label>
 </div>
 
 <textarea name="salary" form="usrform"></textarea>
-<div>
-<tr>
-<td>IMAGE</td>
-<td>:</td>
-<td>
-<input type="file"name="image" accept="image/*">
-</td>
+
+
+<div class="descrip">
+<label for="title" ><b>Description</b></label>
 </div>
 
-<div class="discrip">
-<label for="title" ><b>Discription</b></label>
-</div>
-
-<textarea rows="12" cols="30" name="address" id="address"></textarea>
+<textarea rows="12" cols="30" name="address" id="address" name="description"></textarea>
 
 </div>
 <button href="/job">Add Job </button>
 
 
 </form>
+@if(Session::has('msg2'))
+                <div class="alert alert-success" role="alert" style="width:20%">
+                    {{ Session::get('msg2') }}
+                </div>
+                @endif
 
 
 

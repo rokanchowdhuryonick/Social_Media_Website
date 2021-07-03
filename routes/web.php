@@ -24,17 +24,19 @@ route::get('/registration','registrationcontroller@registration');
 route::group(['middleware'=>['sess']],function(){
 
     route::get('/home','homecon@index');
-  
+    route::post('/registration','registrationcontroller@registration2');
     route::get('/job','jobcon@jobpost');
     route::get('/messiging','messagingcon@message');
     route::get('/notificaition','noticon@noti');
 
-    route::get('/group/create','usercreatecon@create');
-    route::get('/group/list','usercreatecon@list');
-    route::get('/group/details/{id}','usercreatecon@details');
-    route::get('/group/edit/{id}','usercreatecon@edit');
-    route::get('/group/delete/{id}','usercreatecon@delete');
-    route::post('/registration','registrationcontroller@registration2');
+    route::get('/group/create','groupcreatecon@create');
+    route::post('/group/create','groupcreatecon@create2');
+    route::get('/group/list','grouplistcon@list');
+    route::get('/group/details/{id}','grouplistcon@details');
+    route::get('/group/edit/{id}','grouplistcon@edit');
+    route::post('/group/edit/{id}','grouplistcon@update_data');
+    route::get('/group/delete/{id}','grouplistcon@delete');
+   
     route::get('/createpost','createpostcontroller@createpost');
     route::post('/createpost','createpostcontroller@addjob');
    

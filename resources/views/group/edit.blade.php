@@ -14,42 +14,40 @@
   
   <a href="/logout" class="w3-button w3-bar-item">Logout</a>
 
-  <a href="/job" class="w3-button w3-bar-item">Back</a>
+  <a href="/group/list" class="w3-button w3-bar-item">Back</a>
 </nav>
 
 </head>
 <body>
-<h2>Add To Group</h2>
+<h2>Edit Group</h2>
     <form action="" method="post">
     {{csrf_field()}}
+    <input type="hidden" name="id" value="{{$data['id']}}">
     <table>
     <tr>
     <td>UserName</td>
-    <td><input type="text" name="uname"></td>
+    <td><input type="text" name="uname" value="{{$data['uname']}}" ></td>
     </tr>
 
     <tr>
     <td>Group Name</td>
-    <td><input type="text" name="group_name"></td>
+    <td><input type="text" name="group_name"value="{{$data['group_name']}}" ></td>
     </tr>
     
     <tr>
     <td>Email</td>
-    <td><input type="email" name="email"></td>
+    <td><input type="email" name="email"value="{{$data['email']}}" ></td>
     </tr>
     <tr>
     <td></td>
-    <td><input type="submit" name="submit" value="ADD TO GROUP" href="/group/create" ></td>
+    <td><input type="submit" name="submit" value="Update" href="/group/create" ></td>
    
     </tr>
     </table>
     
+    
     </form>
-    @if(Session::has('msssg'))
-                <div class="alert alert-success" role="alert" style="width:20%">
-                    {{ Session::get('msssg') }}
-                </div>
-                @endif
-
+ 
+   
 </body>
 </html>
