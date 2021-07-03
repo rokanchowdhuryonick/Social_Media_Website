@@ -69,13 +69,7 @@
 			    </div> 
 			</div>
 
-			<!---<div class="notifi-item">
-				<img src="img/avatar5.png" alt="img">
-				<div class="text">
-				   <h4>Jane Doe</h4>
-				   <p>@lorem ipsum dolor sit amet</p>
-			    </div> 
-			</div>--->
+			
 
 		</div>
 
@@ -86,6 +80,16 @@
             </form>
           </div>
         </div>
+        @if (Session::has('message'))
+        <div class="alert alert-success">
+          {{session('message')}}
+        </div>
+      @endif
+      <br>
+      <br>
+      @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{$error}}</div>
+      @endforeach
       </nav>
 </div>
 </div> <!--nav-wrapper ends where-->
@@ -100,7 +104,7 @@
   <label for="floatingTextarea">What's On your Mind</label>
   <button class="Post" type="submit">Post</button>
 </div>
-</form>
+
  
   <div class="card-div">
   <div class="card">
@@ -117,14 +121,18 @@
         <p class="card-text">{{ $post-> body }}</p>
     </div>
      </div>
-   <div>Posted By{{ $post->member->username}} on {{ $post->created_at }}
-  </div>
+   
    <div class=" container comment-section">
    <input type="text" class="comment"
     placeholder="   Add a comment...">
-    <a href="#" class="edit">Edit</a> |
-    <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
+  
+    <a href="/post/edit{{ $post->id }}"  class="edit">Edit</a> 
+    
+    <a href="/post/delete/{{ $post->id }}" class="delete">Delete</a> 
+   
+    
     @endforeach
+  </form>
    </div>
   </div>
 

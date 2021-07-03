@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+   // use HasFactory;
+   protected $table = 'posts';
+   protected $fillable =['body','user_id'];
+
+    
    
-    public function member()
-    {
-        return $this->belongsTo(Member::class);
-    }
+    
 }

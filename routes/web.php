@@ -31,11 +31,14 @@ Route::post('/signup',[UserController::class,'addmember']);
 Route::get('/signup',[UserController::class,'getview']);
 
 
+Route::get('/country/edit/{id}', [CountryController::class, 'Viewpost']);
+Route::post('/country/edit/{id}', [CountryController::class, 'editpost']);
 
 Route::get('/homepage',[PostController::class,'getview']);
 Route::post('/homepage',[PostController::class,'postCreatePost']);
      
 Route::get('/logout',[LogoutController::class,'index']);
+Route::get('/post/delete/{id}', [PostController::class, 'deletePost']);
 
 //Route::group(['middleware'=>['session']],function(){
 

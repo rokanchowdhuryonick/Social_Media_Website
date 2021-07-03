@@ -13,8 +13,5 @@ class Member extends Model  {
    //use HasFactory;
    //use Authenticatable;
    protected $table = 'members';
-    public function posts()
-    {
-        return $this->hasMany(Post::Class);
-    }
+   
 }
