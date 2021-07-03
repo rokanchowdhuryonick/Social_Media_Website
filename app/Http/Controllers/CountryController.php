@@ -38,4 +38,39 @@ class CountryController extends Controller
         }
         
     }
+
+    public function updateViewCountry($id=null)
+    {
+        if ($id) {
+            $country = CountryModel::find($id);
+            return view('admins.countryEdit')->with('country', $country);
+        }
+    }
+
+    public function updateCountry(Request $req, $id)
+    {
+        $validator = $this->validate($req, [
+            'country_name'=> 'required'
+            ]);
+
+        $country= CountryModel::find($id);
+        $country->country_name = $req->country_name;
+        $country->update();
+
+        return redirect('/country')->with('message', 'Country successfully updated!');
+    }
+
+    public function deleteCountry($id)
+    {
+        $country = CountryModel::find($id);
+        $countryDeleted = $country->delete();
+
+        if ($countryDeleted) {
+
+            //$req->session()->flash('message', 'Country successfully deleted!');
+            return redirect()->back()->with('message', 'Country successfully deleted!');
+        }else{
+            return redirect()->back()->withErrors(['error'=>'Failed to delete!']);
+        }
+    }
 }

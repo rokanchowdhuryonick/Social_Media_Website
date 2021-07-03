@@ -44,6 +44,7 @@
               aria-expanded="false">Admin Settings <span><img src="{{asset('images/down-arrow.png')}}" alt="" /></span></a>
             <ul class="dropdown-menu login">
               <li><a href="/country">Country List</a></li>
+              <li><a href="/restictedWord">Resticted Words</a></li>
               <li><a href="/users">Users List</a></li>
             </ul>
           </li>
