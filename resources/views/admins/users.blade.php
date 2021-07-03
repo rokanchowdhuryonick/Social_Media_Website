@@ -34,7 +34,7 @@
             <th>Name</th>
             <th>Country Name</th>
             <th>Email</th>
-            <th>User Name</th>
+            <th>Status</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -42,16 +42,32 @@
           @php
            $i=0;   
           @endphp
-          {{-- @foreach ($userList as $user) --}}
+          @foreach ($userList as $user)
           <tr>
             <td>{{++$i}}</td>
-            <td>Test Name</td>
-            <td>Test Country</td>
-            <td>user1@email.com</td>
-            <td>usertestusername</td>
-            <td><a href="/profile/1" class="btn btn-info"><i class="fa fa-eye"></i></a> <a href="country/update/1" class="btn btn-warning"><i class="fa fa-pencil"></i></a> <a href="user/delete/1" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+            <td>{{$user['name']}}</td>
+            <td>{{$user['country_name']}}</td>
+            <td>{{$user['email']}}</td>
+            <td>@php
+                if ($user['active']=='1') {
+                  echo "<span class='btn-success badge'>Active</span>";
+                }else {
+                  echo "<span class='btn-danger badge'>Deactive</span>";
+                }
+            @endphp
+            </td>
+            <td>
+              <a href="/profile/{{$user['login_id']}}" class="btn btn-info"><i class="fa fa-eye"></i></a> <a href="user/update/1" class="btn btn-warning"><i class="fa fa-pencil"></i></a> <a href="user/delete/1" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+              @php
+                if ($user['active']=='1') {
+                  echo "<a href='".route('user.deactive', ['id'=>$user['login_id']])."' class='btn btn-danger'>Make Deactive</a>";
+                }else {
+                  echo "<a href='".route('user.active', ['id'=>$user['login_id']])."' class='btn btn-success'>Make Active</a>";
+                }
+              @endphp
+            </td>
           </tr>
-          {{-- @endforeach --}}
+          @endforeach
         </tbody>
       </table>
 
