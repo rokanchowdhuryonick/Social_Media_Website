@@ -8,7 +8,7 @@
  <br>
  <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">Res List</h3>
+      <h3 class="panel-title">Resticted Words List</h3>
     </div>
     <div class="panel-body">
       @if (Session::has('message'))
@@ -23,15 +23,15 @@
       @endforeach
       <form method="post" class="form-inline">
         @csrf
-        <input type="text" class="form-control" name="country_name" id="">
+        <input type="text" class="form-control" name="message" id="">
         <input type="submit" value="Add" class="btn btn-primary">
       </form>
 <br>
-      <table class="table" id="countryList">
+      <table class="table" id="bannedList">
         <thead>
           <tr>
             <th>#</th>
-            <th>Country Name</th>
+            <th>Word</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -39,11 +39,11 @@
           @php
            $i=0;   
           @endphp
-          @foreach ($countryList as $country)
+          @foreach ($bannedMessageList as $bannedMessage)
           <tr>
             <td>{{++$i}}</td>
-            <td>{{$country['country_name']}}</td>
-            <td><a href="country/update/{{$country['country_id']}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> <a href="country/delete/{{$country['country_id']}}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+            <td>{{$bannedMessage['message']}}</td>
+            <td><a href="restictedWord/delete/{{$bannedMessage['id']}}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
           </tr>
           @endforeach
         </tbody>
@@ -59,7 +59,7 @@
 @section('script')
 <script>
   $(document).ready(function() {
-    $('#countryList').DataTable();
+    $('#bannedList').DataTable();
 });
 </script>
 @endsection
