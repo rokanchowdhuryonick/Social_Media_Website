@@ -37,7 +37,47 @@
             </div>
         </div>
         <div class="col-md-9">
-        
+        <table class="table">
+            <tr>
+                <th>
+                    Email:
+                </th>
+                <td>
+                    {{$user['email']}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Country:
+                </th>
+                <td>
+                    @foreach ($countryList as $country)
+                        @if ($country['country_id']==$user['country_id'])
+                            {{$country['country_name']}}
+                            @php
+                                break;
+                            @endphp
+                        @endif
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Gender:
+                </th>
+                <td>
+                    {{$user['gender']}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Phone:
+                </th>
+                <td>
+                    {{$user['phone']}}
+                </td>
+            </tr>
+        </table>
 
         </div>
     </div>

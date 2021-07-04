@@ -34,11 +34,13 @@ class UserController extends Controller
     public function profileView($id)
     {
         $userData = UserModel::join('user_data', 'login.login_id', '=', 'user_data.login_id')
-                            ->where('user_type','=', 'individual');
+                            ->where('user_type','=', 'individual')
+                            ->where('user_data.login_id','=',$id);
         if ($userData->count()>0) {
             $userData = $userData->get();
             $userData = $userData[0];
-            return view('users.userProfile')->with('user',$userData);
+            return view('users.userProfile')->with('user',$userData)
+                                            ->with('countryList', CountryModel::all());
         }else{
             return redirect()->back()->withErrors('User does not exists!');
         }

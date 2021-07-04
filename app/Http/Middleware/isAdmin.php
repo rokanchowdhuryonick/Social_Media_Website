@@ -20,7 +20,7 @@ class isAdmin
             return $next($request);
         }
    
-        return redirect('/dashboard')->with('error',"You don't have admin access.");
+        return redirect('/dashboard')->withErrors("You don't have access to that page.");
 
        // return $next($request);
     }

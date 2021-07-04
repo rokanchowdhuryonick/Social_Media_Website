@@ -22,22 +22,24 @@
         </ul>
     </div>
     @endif
-
-    <form method="post" class="form">
-        @csrf
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" id="email">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="text" class="form-control" name="password" id="password">
-        </div>
-        
-        
-        <input type="submit" value="Login" class="btn btn-primary"><br><br>
-    </form>
-
-
+<div class="row">
+    <div class="col-md-5">
+        <form method="post" class="form">
+            @csrf
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" class="form-control" name="password" id="password">
+            </div>
+            
+            
+            <input type="submit" value="Login" class="btn btn-primary"><br><br>
+        </form>
+    </div>
+</div>
+    
 </div>
 @endsection
