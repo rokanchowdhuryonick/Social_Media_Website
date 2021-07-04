@@ -11,5 +11,5 @@ class UserModel extends Model
     protected $table = 'login';
     protected $primaryKey = 'login_id';
     public $timestamps = false;
-    protected $fillable = ['email', 'password', 'registration_datetime', 'active', 'user_type'];
+    protected $fillable = ['email', 'password', 'registration_datetime', 'last_login_datetime', 'active', 'user_type'];
 }

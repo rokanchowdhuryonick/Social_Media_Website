@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserModel;
 use App\Models\UserDataModel;
+use App\Models\CountryModel;
+use App\Models\NoticeModel;
 use Illuminate\Support\Facades\Hash;
 
-use validator;
+use Validator;
 
 class AdminController extends Controller
 {
@@ -16,7 +18,10 @@ class AdminController extends Controller
         $userId = session()->get('login_id');
         $userData = UserModel::join('user_data', 'login.login_id', '=', 'user_data.login_id')
                     ->where('login.login_id','=', $userId)->first();
-        return view('admins.dashboard')->with('userData', $userData);
+        $notices = NoticeModel::where('notice_for','=',$userId)
+                               ->orWhere('notice_for','=',0)->get();
+        return view('admins.dashboard')->with('userData', $userData)
+                                        ->with('noticeList', $notices);
     }
     public function index()
     {
@@ -62,6 +67,65 @@ class AdminController extends Controller
         }
     }
 
+    public function updateAdminView($id)
+    {
+        # code...
+    }
+
+    public function updateAdmin(Request $request, $id)
+    {
+        $updateType = $request->updateType;
+        $datas=[];
+        $datas['userData'] = UserModel::join('user_data', 'login.login_id', '=', 'user_data.login_id')
+                    ->where('login.login_id','=', $id)->first();
+        $datas['countryList'] = CountryModel::all();
+
+        if ($updateType=="adminDataUpdate") {
+            $validator = Validator::make($request->all(), [
+                'name'=> 'required',
+                'phone'=> 'required'
+                ]);
+            
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator);
+                //return json_encode(['success'=>false, 'errors'=>$validator->errors()]);
+            }else{
+                $user = UserDataModel::find($id);
+                $updated = $user->update($request->all());
+                if ($updated) {
+                    $request->session()->flash('message', 'Admin data successfully updated');
+                    return redirect()->route('admin.update', [$id]);
+                }else{
+                    return redirect()->back()->withErrors('Failed to update admin data');
+                }
+            }
+        }
+
+        if ($updateType=="adminPasswordUpdate") {
+            $validator = Validator::make($request->all(), [
+                'password'=> 'required|min:4'
+                ]);
+            
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator);
+                    //return json_encode(['success'=>false, 'errors'=>$validator->errors()]);
+                }else{
+                    $user = UserModel::find($id);
+                    $updated = $user->update(['password'=>md5($request->password)]);
+                    if ($updated) {
+                        $request->session()->flash('message', 'Admin password successfully updated');
+                        return redirect()->route('admin.update', [$id]);
+                    }else{
+                        return redirect()->back()->withErrors('Failed to update admin password');
+                    }
+                }
+        }
+        
+
+        return view('admins.updateAdmin')->with('datas', $datas);
+        
+    }
+
     public function deleteAdmin($id)
     {
         $userData = UserDataModel::where('login_id','=', $id);
@@ -76,5 +140,40 @@ class AdminController extends Controller
         }else{
             return redirect()->back()->withErrors(['error'=>'Failed to delete!']);
         }
+    }
+
+    public function exportUsersToCSV()
+    {
+        $userList = UserModel::join('user_data', 'login.login_id', '=', 'user_data.login_id')
+                            ->where('user_type','=', 'individual')->get();
+
+        $fileName = "Users_".date('d-m-Y').".csv";
+		$output = fopen("php://output", "w");
+        header("Content-Description: Users List CSV File Generate");
+	    header('Content-Type: application/csv;');  
+	    header('Content-Disposition: attachment; filename='.$fileName);
+        $header = array('#', 'User Id', 'Name', 'Phone', 'Email', 'Date of birth', 'Gender', 'Profile Image Location',  'Cover Image Location', 'Registration DateTime', 'Last Login Date Time');
+	    fputcsv($output, $header); 
+        $i=0;
+	    foreach ($userList as $row) {
+	    	$tempRow = [
+	      		'sl' => ++$i,
+	      		'login_id' => $row['login_id'],
+	      		'name' => $row['name'],
+	      		'phone' => sprintf(" %s",$row['phone']),
+	      		'email' => $row['email'],
+	      		'dob' => $row['dob'],
+	      		'gender' => $row['gender'],
+                'profile_photo' => $row['profile_photo'],
+                'cover_photo' => $row['cover_photo'],
+	      		'registration_datetime' => $row['registration_datetime'],
+	      		'last_login_datetime' => $row['last_login_datetime'],
+	      	];
+	      	fputcsv($output, $tempRow);
+	           // print_r($tempRow);
+	           // echo "<br>";
+	    }  
+	    fclose($output);
+        exit('This file download date time : '.date("d/m/Y h:i:s A"));
     }
 }

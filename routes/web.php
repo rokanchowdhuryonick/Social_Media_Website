@@ -27,6 +27,8 @@ Route::group(['middleware'=>['sessionAuth']], function(){
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
+    Route::get('/profile/{id}', [UserController::class, 'profileView']);
+
     Route::group(['middleware'=>['isAdmin']], function(){
 
         //Country Routes
@@ -43,7 +45,7 @@ Route::group(['middleware'=>['sessionAuth']], function(){
 
         //User's Routes for admin 
         Route::get('/users', [UserController::class, 'index']);
-        Route::get('/profile/{id}', [UserController::class, 'profileView']);
+        
         Route::get('/active/user/{id}', [UserController::class, 'activeUserProfile'])->name('user.active');
         Route::get('/deactive/user/{id}', [UserController::class, 'deactiveUserProfile'])->name('user.deactive');
 
@@ -60,5 +62,9 @@ Route::group(['middleware'=>['sessionAuth']], function(){
         Route::post('/notice/update/{id}', [NoticeController::class, 'updateNotice']);
         Route::get('/notice/{id}', [NoticeController::class, 'getNotice']);
         Route::get('/notice/delete/{id}', [NoticeController::class, 'deleteNotice']);
+
+
+        //Report
+        Route::get('report/export/users/csv', [AdminController::class, 'exportUsersToCSV'])->name('user.csv');
     });
 });
