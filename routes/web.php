@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RestictedMessageController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,7 @@ Route::group(['middleware'=>['sessionAuth']], function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
     Route::get('/profile/{id}', [UserController::class, 'profileView']);
+    Route::get('/privacy-policy', [SettingsController::class, 'viewPrivacyPolicy']);
 
     Route::group(['middleware'=>['isAdmin']], function(){
 
@@ -45,6 +49,7 @@ Route::group(['middleware'=>['sessionAuth']], function(){
 
         //User's Routes for admin 
         Route::get('/users', [UserController::class, 'index']);
+        Route::get('/user/convert/admin/{id}', [UserController::class, 'convertToAdmin'])->name('user.convertToAdmin');
         
         Route::get('/active/user/{id}', [UserController::class, 'activeUserProfile'])->name('user.active');
         Route::get('/deactive/user/{id}', [UserController::class, 'deactiveUserProfile'])->name('user.deactive');
@@ -54,6 +59,8 @@ Route::group(['middleware'=>['sessionAuth']], function(){
         Route::get('/admin/update/{id}', [AdminController::class, 'updateAdmin'])->name('admin.update');
         Route::post('/admin/update/{id}', [AdminController::class, 'updateAdmin'])->name('admin.update');
         Route::get('/admin/delete/{id}', [AdminController::class, 'deleteAdmin'])->name('admin.delete');
+        Route::get('/admin/convert/user/{id}', [AdminController::class, 'convertToUser'])->name('admin.convertToUser');
+
 
 
         //Notices
@@ -62,6 +69,10 @@ Route::group(['middleware'=>['sessionAuth']], function(){
         Route::post('/notice/update/{id}', [NoticeController::class, 'updateNotice']);
         Route::get('/notice/{id}', [NoticeController::class, 'getNotice']);
         Route::get('/notice/delete/{id}', [NoticeController::class, 'deleteNotice']);
+
+        //Settings
+        Route::get('/settings/privacy-policy', [SettingsController::class, 'updatePrivacyPolicyView']);
+        Route::post('/settings/privacy-policy', [SettingsController::class, 'updatePrivacyPolicyPost']);
 
 
         //Report

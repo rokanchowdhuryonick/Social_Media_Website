@@ -80,6 +80,18 @@ class UserController extends Controller
         }
     }
 
+    public function convertToAdmin($id)
+    {
+        $user = UserModel::find($id);
+        $converted = $user->update(['user_type'=>'admin']);
+        if ($converted) {
+            session()->flash('message', 'An users converted to admin successfully!');
+            return redirect('/users');
+        }else{
+            return redirect()->back()->withErrors('Failed to convert!');
+        }
+    }
+
 
     
 }

@@ -67,11 +67,6 @@ class AdminController extends Controller
         }
     }
 
-    public function updateAdminView($id)
-    {
-        # code...
-    }
-
     public function updateAdmin(Request $request, $id)
     {
         $updateType = $request->updateType;
@@ -139,6 +134,18 @@ class AdminController extends Controller
         
         }else{
             return redirect()->back()->withErrors(['error'=>'Failed to delete!']);
+        }
+    }
+
+    public function convertToUser($id)
+    {
+        $user = UserModel::find($id);
+        $converted = $user->update(['user_type'=>'individual']);
+        if ($converted) {
+            session()->flash('message', 'An admin converted to user successfully!');
+            return redirect('/admin');
+        }else{
+            return redirect()->back()->withErrors('Failed to convert!');
         }
     }
 

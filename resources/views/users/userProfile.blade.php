@@ -31,7 +31,7 @@
 
                     </div>
                     <div class="panel-footer">
-                        <a href=""><i class="fa fa-inbox fa-3x"></i></a>
+                        <a class="btn btn-danger" href="{{route('user.convertToAdmin',$user['login_id'])}}">Convert To Admin</a>
                     </div>
                 </div>
             </div>

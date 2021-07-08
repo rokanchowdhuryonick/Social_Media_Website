@@ -1,5 +1,6 @@
 <!-- Footer  -->
-<footer id="footer">
+<footer id="footer"><br>
+  
     <div class="copyright">
       <p>All rights reserved</p>
     </div>
