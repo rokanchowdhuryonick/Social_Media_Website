@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', "Admin List")
+@section('title', "Dashboard")
 
 @section('content')
 <div class="container-fluid">
@@ -107,7 +107,6 @@
 <script>
   $(document).ready(function() {
     $('#noticeList').DataTable();
-
 
 });
 

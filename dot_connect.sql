@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2021 at 02:25 AM
+-- Generation Time: Jul 08, 2021 at 10:24 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.20
 
@@ -31,6 +31,13 @@ CREATE TABLE `banned_message` (
   `id` int(11) NOT NULL,
   `message` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `banned_message`
+--
+
+INSERT INTO `banned_message` (`id`, `message`) VALUES
+(1, 'banned1');
 
 -- --------------------------------------------------------
 
@@ -151,11 +158,45 @@ CREATE TABLE `job_response` (
 CREATE TABLE `login` (
   `login_id` int(11) NOT NULL,
   `email` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `password` int(225) NOT NULL,
+  `password` varchar(225) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `registration_datetime` datetime NOT NULL,
+  `last_login_datetime` datetime DEFAULT NULL,
   `active` int(2) NOT NULL DEFAULT 0,
   `user_type` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL COMMENT 'individual, company, admin'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`login_id`, `email`, `password`, `registration_datetime`, `last_login_datetime`, `active`, `user_type`) VALUES
+(3, 'user1@gmail.com', '202cb962ac59075b964b07152d234b70', '2021-07-03 13:48:55', '0000-00-00 00:00:00', 1, 'individual'),
+(4, 'user2@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2021-07-03 16:10:36', '2021-07-04 16:02:33', 1, 'individual'),
+(5, 'admin@admin.com', '827ccb0eea8a706c4c34a16891f84e7b', '2021-07-03 21:07:06', '2021-07-08 04:47:56', 1, 'admin'),
+(6, 'test@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2021-07-03 21:07:55', '2021-07-04 21:17:01', 1, 'admin'),
+(7, 'user3@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '2021-07-04 16:26:15', NULL, 1, 'individual');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notice`
+--
+
+CREATE TABLE `notice` (
+  `notice_id` int(11) NOT NULL,
+  `notice_title` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `notice_text` varchar(500) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `notice_for` int(11) NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notice`
+--
+
+INSERT INTO `notice` (`notice_id`, `notice_title`, `notice_text`, `notice_for`, `created_at`) VALUES
+(1, 'Demo Title 1', 'testings......', 3, '2021-07-03 18:36:02'),
+(3, 'Title one', 'kjbkk', 0, '2021-07-03 20:59:11');
 
 -- --------------------------------------------------------
 
@@ -174,6 +215,25 @@ CREATE TABLE `notifications` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `setting_id` int(11) NOT NULL,
+  `setting_key` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
+  `setting_value` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`setting_id`, `setting_key`, `setting_value`) VALUES
+(1, 'privacy_policy', '<h1>Privacy Policy</h1>\r\n<p>5 July 2020</p>\r\n<h3>Demos Privacy Policy</h3>\r\n<p><img style=\"float: right;\" src=\"https://pbs.twimg.com/media/EvANp9DVkAEpDPc?format=jpg&amp;name=large\" alt=\"Rokan Chowdhury Onick\" width=\"250\" height=\"313\" /></p>\r\n<p>Demos follows the relevant legal requirements and takes all reasonable precautions to safeguard personal information.</p>\r\n<ol>\r\n<li>INTRODUCTION</li>\r\n</ol>\r\n<p>Demos is committed to protecting your privacy and security. This policy explains how and why we use your personal data, to ensure you remain informed and in control of your information.</p>\r\n<p>You can decide not to receive communications or change how we contact you at any time. If you wish to do so please contact us by emailing&nbsp;hello@demos.co.uk, writing to 76 Vincent Square, London, SW1 2PD or 020 3878 3955 (Lines open 9.30am &ndash; 6pm, Mon &ndash; Fri).</p>\r\n<p>We will never sell your personal data, and will only ever share it with organisations we work with where necessary and if its privacy and security are guaranteed. Personal information submitted to Demos is only used to contact you regarding Demos activities.&nbsp;</p>\r\n<p>Information about visitors to the Demos website domain is automatically logged for the purposes of statistical analysis. Such information includes the IP address from which you visit, referral address, and other technical information such as browser type and operating system. Your email address is not automatically logged without your knowledge.</p>\r\n<p>We will not distribute, sell, trade or rent your personal information to third parties. Demos may provide aggregate statistics about our website&rsquo;s users, traffic patterns and related site information to reputable third-parties such as Demos&rsquo;s funding bodies or potential partners. Such statistical information will not include personally identifying information.</p>\r\n<p>Questions?</p>\r\n<p>Any questions you have in relation to this policy or how we use your personal data should be sent to&nbsp;hello@demos.co.uk&nbsp;for the attention of Demos&rsquo; Head of External Affairs.</p>\r\n<ol>\r\n<li>ABOUT US</li>\r\n</ol>\r\n<p>Your personal data (i.e. any information which identifies you, or which can be identified as relating to you personally) will be collected and used by Demos (charity no:1042046,&nbsp; company registration no: 2977740).</p>\r\n<ol>\r\n<li>THE INFORMATION WE COLLECT</li>\r\n</ol>\r\n<p>Personal data you provide</p>\r\n<p>We collect data you provide to us. This includes information you give when joining as a member or signing up to our newsletter, placing an order or communicating with us. For example:</p>\r\n<ul>\r\n<li>personal details (name, job title, organisation and email) when you sign up to our newsletter and / or events.</li>\r\n</ul>\r\n<ul>\r\n<li>financial information (payment information such as credit/debit card or direct debit details, when making donations or paying for a service. Please see section 8 for more information on payment security); and</li>\r\n</ul>\r\n<ul>\r\n<li>details of Demos events you have attended.</li>\r\n</ul>\r\n<p>Sensitive personal data</p>\r\n<p>We do not normally collect or store sensitive personal data (such as information relating to health, beliefs or political affiliation) about those signed up to Demos&rsquo;s newsletter. However there are some situations where this will occur (e.g. if you have an accident on one of our events). If this does occur, we&rsquo;ll take extra care to ensure your privacy rights are protected.</p>\r\n<p>Accidents or incidents</p>\r\n<p>If an accident or incident occurs on our property, at one of our events or involving one of our staff then we&rsquo;ll keep a record of this (which may include personal data and sensitive personal data).</p>');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_data`
 --
 
@@ -181,16 +241,27 @@ CREATE TABLE `user_data` (
   `user_data_id` int(11) NOT NULL,
   `login_id` int(11) NOT NULL COMMENT 'login id will come from login table',
   `name` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `dob` date NOT NULL,
-  `gender` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL COMMENT 'Male, Female',
-  `address` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `country_id` int(11) NOT NULL COMMENT 'country_id will come from country table',
-  `phone` varchar(30) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `about_me` varchar(500) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `profile_photo` varchar(220) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `cover_photo` varchar(220) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `user_cv` varchar(220) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL
+  `dob` date DEFAULT NULL,
+  `gender` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL COMMENT 'Male, Female',
+  `address` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `country_id` int(11) DEFAULT NULL COMMENT 'country_id will come from country table',
+  `phone` varchar(30) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `about_me` varchar(500) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `profile_photo` varchar(220) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `cover_photo` varchar(220) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `user_cv` varchar(220) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_data`
+--
+
+INSERT INTO `user_data` (`user_data_id`, `login_id`, `name`, `dob`, `gender`, `address`, `country_id`, `phone`, `about_me`, `profile_photo`, `cover_photo`, `user_cv`) VALUES
+(3, 3, 'User One', NULL, NULL, NULL, 1, '01919820106', NULL, NULL, NULL, NULL),
+(4, 4, 'User Two', NULL, NULL, NULL, NULL, '099992111', NULL, NULL, NULL, NULL),
+(5, 5, 'Md. Rokan Chowdhury Onick', NULL, NULL, NULL, -1, '01771891512', NULL, NULL, NULL, NULL),
+(6, 6, 'Test Admin', NULL, NULL, NULL, NULL, '0199999999', NULL, NULL, NULL, NULL),
+(7, 7, 'User Three', NULL, 'Male', NULL, 5, '0188888888', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -266,10 +337,22 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`login_id`);
 
 --
+-- Indexes for table `notice`
+--
+ALTER TABLE `notice`
+  ADD PRIMARY KEY (`notice_id`);
+
+--
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`setting_id`);
 
 --
 -- Indexes for table `user_data`
@@ -291,7 +374,7 @@ ALTER TABLE `user_report`
 -- AUTO_INCREMENT for table `banned_message`
 --
 ALTER TABLE `banned_message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `block_friend`
@@ -339,7 +422,13 @@ ALTER TABLE `job_response`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `notice`
+--
+ALTER TABLE `notice`
+  MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -348,10 +437,16 @@ ALTER TABLE `notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `user_data`
 --
 ALTER TABLE `user_data`
-  MODIFY `user_data_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_data_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_report`

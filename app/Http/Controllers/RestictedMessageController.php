@@ -14,6 +14,12 @@ class RestictedMessageController extends Controller
         return view('admins.restictedWord')->with('bannedMessageList', $bannedMessageList);
     }
 
+    public function index_api()
+    {
+        $bannedMessageList = RestictedMessageModel::all();
+        return json_encode(['status'=>true, 'data'=> $bannedMessageList]);
+    }
+
     public function addRestictedMessage(Request $req)
     {
         $validator = $this->validate($req, [
@@ -30,6 +36,20 @@ class RestictedMessageController extends Controller
             );
             //$req->session()->flash('message', 'Country successfully added!');
             //return redirect()->back()->withErrors($validator)->withInput();;
+        }
+    }
+
+    public function addRestictedMessage_api(Request $req)
+    {
+        $validator = $this->validate($req, [
+            'message'=> 'required|unique:banned_message'
+            ]);
+
+        $restictedWordCreated = RestictedMessageModel::create($validator);
+        if ($restictedWordCreated) {
+            return json_encode(['success'=>true, 'message'=>'A resticted word successfully added!']);
+        }else{
+            return json_encode(['status'=>'200', 'success'=>false, 'error'=> $validator->errors()]);
         }
     }
 

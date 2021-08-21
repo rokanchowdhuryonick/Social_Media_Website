@@ -19,6 +19,7 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right main-menu">
           <li class="dropdown"><a href="/dashboard">Home</a></li>
+          @if (Session::get('user_type')=='individual')
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
               aria-expanded="false">Newsfeed <span><img src="{{asset('images/down-arrow.png')}}" alt="" /></span></a>
@@ -39,6 +40,7 @@
               <li><a href="timeline-friends.html">Timeline Friends</a></li>
             </ul>
           </li>
+          @endif
           @if (Session::get('user_type')=='admin')
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -50,6 +52,13 @@
                 <li><a href="/admin">Admins List</a></li>
                 <li><a href="/notice">Notice</a></li>
                 <li><a href="/jobs">Jobs</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                aria-expanded="false">Site Settings <span><img src="{{asset('images/down-arrow.png')}}" alt="" /></span></a>
+              <ul class="dropdown-menu login">
+                <li><a href="/settings/privacy-policy">Privacy Policy</a></li>
               </ul>
             </li>
           @endif

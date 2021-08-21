@@ -23,12 +23,34 @@ class AdminController extends Controller
         return view('admins.dashboard')->with('userData', $userData)
                                         ->with('noticeList', $notices);
     }
+    
+    public function dashboard_api($id)
+    {
+        $userId = $id;
+        $userData = UserModel::join('user_data', 'login.login_id', '=', 'user_data.login_id')
+                    ->where('login.login_id','=', $userId)->first();
+        $notices = NoticeModel::where('notice_for','=',$userId)
+                               ->orWhere('notice_for','=',0)->get();
+        $data = [
+            'userData'=>$userData,
+            'noticeList'=>$notices,
+        ];
+        return json_encode(['status'=>'200', 'data'=>$data]);
+    }
+
     public function index()
     {
         $adminList = UserModel::join('user_data', 'login.login_id', '=', 'user_data.login_id')
                             ->where('user_type','=', 'admin')->get();
         
         return view('admins.admins')->with('adminList', $adminList);
+    }
+
+    public function adminList_api()
+    {
+        $adminList = UserModel::join('user_data', 'login.login_id', '=', 'user_data.login_id')
+                            ->where('user_type','=', 'admin')->get();
+        return json_encode(['status'=>'200', 'data'=>$adminList]);
     }
 
     public function addAdmin(Request $req)
@@ -67,9 +89,42 @@ class AdminController extends Controller
         }
     }
 
-    public function updateAdminView($id)
+
+    public function addAdmin_api(Request $req)
     {
-        # code...
+        $validator = $this->validate($req, [
+            'email'=> 'required|email|unique:login',
+            'password'=> 'required|min:4',
+            'name'=> 'required'
+            ]);
+        //dd($validator);
+        $validated = [
+            'email'=>$req->email,
+            'password'=>md5($req->password),
+            'registration_datetime'=>date('Y-m-d H:i:s'),
+            'active'=>1,
+            'user_type'=>'admin'
+        ];
+        //dd($validated);
+        $adminCreated = UserModel::create($validated);
+        
+        if ($adminCreated) {
+            UserDataModel::create([
+                'login_id'=>$adminCreated->login_id,
+                'name'=>$req->name,
+                'phone'=>$req->phone,
+            ]);
+
+ //           $req->session()->flash('message', 'Admin successfully added!');
+            return json_encode(['status'=>'200', 'success'=>true, 'message', 'Admin successfully added!']);
+        }else{
+            // $validator->errors()->add(
+            //     'field', 'Something is wrong with this field!'
+            // );
+            return json_encode(['status'=>'200', 'success'=>false, 'error'=> $validator->errors()]);
+            //$req->session()->flash('message', 'Country successfully added!');
+            //return redirect()->back()->withErrors($validator)->withInput();;
+        }
     }
 
     public function updateAdmin(Request $request, $id)
@@ -139,6 +194,18 @@ class AdminController extends Controller
         
         }else{
             return redirect()->back()->withErrors(['error'=>'Failed to delete!']);
+        }
+    }
+
+    public function convertToUser($id)
+    {
+        $user = UserModel::find($id);
+        $converted = $user->update(['user_type'=>'individual']);
+        if ($converted) {
+            session()->flash('message', 'An admin converted to user successfully!');
+            return redirect('/admin');
+        }else{
+            return redirect()->back()->withErrors('Failed to convert!');
         }
     }
 

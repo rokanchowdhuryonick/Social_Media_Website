@@ -74,7 +74,9 @@
                     <td>{{$admin['email']}}</td>
                     <td>{{$admin['phone']}}</td>
                     <td>{{$admin['registration_datetime']}}</td>
-                    <td><a href="{{route('admin.update', ['id'=>$admin['login_id']])}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> <a href="{{route('admin.delete', ['id'=>$admin['login_id']])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                    <td><a href="{{route('admin.update', ['id'=>$admin['login_id']])}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a> <a href="{{route('admin.delete', ['id'=>$admin['login_id']])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-info" href="{{route('admin.convertToUser',$admin['login_id'])}}">Convert To User</a>
+                    </td>
                   </tr>
                   @endforeach
                 </tbody>
