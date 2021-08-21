@@ -25,13 +25,18 @@ use App\Http\Controllers\SettingsController;
 //Login
 Route::get('/login', [AuthController::class, 'index']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/privacy-policy', [SettingsController::class, 'viewPrivacyPolicy']);
+
+
 
 Route::group(['middleware'=>['sessionAuth']], function(){
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
     Route::get('/profile/{id}', [UserController::class, 'profileView']);
-    Route::get('/privacy-policy', [SettingsController::class, 'viewPrivacyPolicy']);
+    
+    
+    
 
     Route::group(['middleware'=>['isAdmin']], function(){
 
@@ -79,3 +84,23 @@ Route::group(['middleware'=>['sessionAuth']], function(){
         Route::get('report/export/users/csv', [AdminController::class, 'exportUsersToCSV'])->name('user.csv');
     });
 });
+
+
+//For API 
+Route::get('/api/profile/{id}', [UserController::class, 'profileView_api']);
+Route::get('/api/countryList', [CountryController::class, 'index_api']);
+Route::post('/api/login', [AuthController::class, 'login_api']);
+Route::get('/api/logout', [AuthController::class, 'logout_api']);
+Route::get('/api/adminData/{id}', [AdminController::class, 'dashboard_api']);
+
+Route::post('/api/addAdmin', [AdminController::class, 'addAdmin_api']);
+Route::get('/api/adminList', [AdminController::class, 'adminList_api']);
+
+Route::post('/api/addCountry', [CountryController::class, 'createCountry_api']);
+Route::get('/api/country/delete/{id}', [CountryController::class, 'deleteCountry_api']);
+
+Route::get('/api/restictedWordList', [RestictedMessageController::class, 'index_api']);
+Route::post('/api/addRestictedWord', [RestictedMessageController::class, 'addRestictedMessage_api']);
+
+Route::get('/api/users', [UserController::class, 'index_api']);
+

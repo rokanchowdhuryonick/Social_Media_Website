@@ -14,6 +14,15 @@ class CountryController extends Controller
         return view('admins.country')->with('countryList', $countryList);
     }
 
+    public function index_api()
+    {
+        $countryList = CountryModel::all();
+        header("Content-Type: application/json");
+        $data['countryList'] = $countryList;
+        return json_encode(['status'=>'200', 'data'=>$data]);
+        
+    }
+
     public function createCountry(Request $req)
     {
         $validator = $this->validate($req, [
@@ -35,6 +44,27 @@ class CountryController extends Controller
             );
             //$req->session()->flash('message', 'Country successfully added!');
             //return redirect()->back()->withErrors($validator)->withInput();;
+        }
+        
+    }
+
+
+    public function createCountry_api(Request $req)
+    {
+        $validator = $this->validate($req, [
+            'country_name'=> 'required|unique:country'
+            ]);
+//dd($validator);
+        $validatedData = [
+            'country_name' => $req->country_name,
+            'status' => 1
+        ];
+
+        $countryCreated = CountryModel::create($validatedData);
+        if ($countryCreated) {
+            return json_encode(['status'=>'200', 'success'=>true]);
+        }else{
+            return json_encode(['status'=>'200', 'success'=>false, 'error'=> $validator->errors()]);
         }
         
     }
@@ -71,6 +101,20 @@ class CountryController extends Controller
             return redirect()->back()->with('message', 'Country successfully deleted!');
         }else{
             return redirect()->back()->withErrors(['error'=>'Failed to delete!']);
+        }
+    }
+
+    public function deleteCountry_api($id)
+    {
+        $country = CountryModel::find($id);
+        $countryDeleted = $country->delete();
+
+        if ($countryDeleted) {
+
+            //$req->session()->flash('message', 'Country successfully deleted!');
+            return json_encode(['success'=>true, 'message'=>'Successfully deleted!']);
+        }else{
+            return json_encode(['success'=>false, 'error'=>'Failed to delete!']);
         }
     }
 }
